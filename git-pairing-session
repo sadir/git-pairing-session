@@ -1,0 +1,27 @@
+#! /bin/bash
+
+export GIT_PAIR_SESSION_DIR=$HOME/git-pairing-session
+export COAUTHOR_FILE=$GIT_PAIR_SESSION_DIR/.coauthor.json
+export PAIRS_FILE=$GIT_PAIR_SESSION_DIR/.pairs.json
+
+alias pairing_project=prepareProjectForPairing
+alias pairing_with=setPair
+alias no_longer_pairing="rm $COAUTHOR_FILE"
+
+prepareProjectForPairing() {
+  ln -s -i $GIT_PAIR_SESSION_DIR/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg
+}
+
+setPair() {
+    echo "{ \"name\": \"$(pairName $1)\", \"email\": \"$(pairEmail $1)\" }" > \
+    $COAUTHOR_FILE
+}
+
+pairName() {
+  cat $PAIRS_FILE | jq -r ".name.$1"
+}
+
+pairEmail() {
+  cat $PAIRS_FILE | jq -r ".email.$1"
+}
+
