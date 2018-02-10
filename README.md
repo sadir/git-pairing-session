@@ -1,6 +1,6 @@
 # Git Pairing Session
 
-A mini set of shell scripts to enable you to take advantage of [commits with coauthors](https://github.com/blog/2496-commit-together-with-co-authors).
+A mini set of shell scripts to enable you to take advantage of [commits with coauthors](https://github.com/blog/2496-commit-together-with-co-authors) in Github.
 
 ## Why pair?
 
@@ -8,7 +8,7 @@ See my [blog post](https://tech.nested.com/) on the benefits of pair programming
 
 ## Installation
 
-1. Clone this repo into your home directory.
+1. Clone this repo into your home directory. :house:
 
 ```
 git clone https://github.com/sadir/git-pairing-session.git $HOME/
@@ -28,7 +28,7 @@ pairing_project # symlinks a git hook to append authors to your commit messages.
 
 Note: this will ask your permission to override your current `prepare-commit-msg` git hook if you have one.
 
-4. Setup your `$PAIRS_FILE` so `git-pairing-session` knows who you can pair with. By default this file should be in the directory you cloned this repo into.
+4. Setup your `$PAIRS_FILE` so `git-pairing-session` knows who you can :pear: with. By default this file should be in your `$HOME/git-pairing-session` directory where you cloned this repo.
 
 ```
 cp .pairs.json.example .pairs.json
@@ -38,7 +38,7 @@ cp .pairs.json.example .pairs.json
 
 Note: [your colleagues email addresses must match their github email](https://help.github.com/articles/creating-a-commit-with-multiple-authors/).
 
-5. Get pairing with someone!
+5. Get pairing with someone! :muscle:
 
 ```
 pairing_with ms # hand it a set of initials you set up earlier
@@ -47,7 +47,7 @@ pairing_with ms # hand it a set of initials you set up earlier
 6. When you're done, stop pairing.
 
 ```
-no_longer_pairing # the lone wolf returns
+no_longer_pairing
 ```
 
 ## Customisation
