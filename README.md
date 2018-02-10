@@ -50,6 +50,8 @@ pairing_with ms # hand it a set of initials you set up earlier
 no_longer_pairing
 ```
 
+7. Eat more fruit :pear: :grapes: :tangerine: :green_apple: :banana: :cherries:
+
 ## Customisation
 
 Set these variables after you `source` this repo to override and configure where things live:
