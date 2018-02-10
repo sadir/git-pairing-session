@@ -2,6 +2,7 @@
 
 A mini set of shell scripts to enable you to take advantage of [commits with coauthors](https://github.com/blog/2496-commit-together-with-co-authors) in Github.
 
+![github coauthored commit screenshot](https://i.imgur.com/2Yu1IdT.png)
 ## Why pair?
 
 See my [blog post](https://tech.nested.com/) on the benefits of pair programming.
