@@ -27,7 +27,9 @@ git clone https://github.com/sadir/git-pairing-session.git $HOME/
 source $HOME/git-pairing-session/git-pairing-session
 ```
 
-4. Set up your project to be ready for pairing sessions, by running this command in the root of your project (where your `.git` directory is).
+## Usage
+
+1. Set up your project to be ready for pairing sessions, by running this command in the root of your project (where your `.git` directory is).
 
 ```
 pairing_project # symlinks a git hook to append authors to your commit messages.
@@ -35,7 +37,7 @@ pairing_project # symlinks a git hook to append authors to your commit messages.
 
 Note: this will ask your permission to override your current `prepare-commit-msg` git hook if you have one.
 
-5. Setup your `$PAIRS_FILE` so `git-pairing-session` knows who you can :pear: with. By default this file should be in your `$HOME/git-pairing-session` directory where you cloned this repo.
+2. Setup your `$PAIRS_FILE` so `git-pairing-session` knows who you can :pear: with. By default this file should be in your `$HOME/git-pairing-session` directory where you cloned this repo.
 
 ```
 cp .pairs.json.example .pairs.json
@@ -45,19 +47,19 @@ cp .pairs.json.example .pairs.json
 
 Note: [your colleagues email addresses must match their github email](https://help.github.com/articles/creating-a-commit-with-multiple-authors/).
 
-6. Get pairing with someone! :muscle:
+3. Get pairing with someone! :muscle:
 
 ```
 pairing_with ms # hand it a set of initials you set up earlier
 ```
 
-7. When you're done, stop pairing.
+4. When you're done, stop pairing.
 
 ```
 no_longer_pairing
 ```
 
-8. Eat more fruit :pear: :grapes: :tangerine: :green_apple: :banana: :cherries:
+5. Eat more fruit :pear: :grapes: :tangerine: :green_apple: :banana: :cherries:
 
 ## Customisation
 
