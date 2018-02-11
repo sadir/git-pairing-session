@@ -7,6 +7,13 @@ export PAIRS_FILE=$GIT_PAIR_SESSION_DIR/.pairs.json
 alias pairing_project=prepareProjectForPairing
 alias pairing_with=setPair
 alias no_longer_pairing="rm $COAUTHOR_FILE"
+alias paired_with=setCoauthorsForCurrentBranch
+
+setCoauthorsForCurrentBranch() {
+  setPair $1 &&
+    git filter-branch -f --msg-filter "cat && echo \"\n\nCo-authored-by: $(git config --get user.name) <$(git config --get user.email)>\nCo-authored-by: $(cat $COAUTHOR_FILE | jq -r ".name") <$(cat $COAUTHOR_FILE | jq -r ".email")>\"" master..HEAD &&
+    no_longer_pairing
+}
 
 prepareProjectForPairing() {
   ln -s -i $GIT_PAIR_SESSION_DIR/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg
