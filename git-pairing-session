@@ -1,17 +1,18 @@
 #! /bin/bash
 
 export GIT_PAIR_SESSION_DIR=$HOME/git-pairing-session
-export COAUTHOR_FILE=$GIT_PAIR_SESSION_DIR/.coauthor.json
-export PAIRS_FILE=$GIT_PAIR_SESSION_DIR/.pairs.json
 
 alias pairing_project=prepareProjectForPairing
 alias pairing_with=setPair
-alias no_longer_pairing="rm $COAUTHOR_FILE"
+alias no_longer_pairing=unsetPair
 alias paired_with=setCoauthorsForCurrentBranch
+alias add_colleague=addColleague
+alias remove_colleague=removeColleague
+alias get_colleague=getColleague
 
 setCoauthorsForCurrentBranch() {
   setPair $1 &&
-    git filter-branch -f --msg-filter "cat && echo \"\n\nCo-authored-by: $(git config --get user.name) <$(git config --get user.email)>\nCo-authored-by: $(cat $COAUTHOR_FILE | jq -r ".name") <$(cat $COAUTHOR_FILE | jq -r ".email")>\"" master..HEAD &&
+    git filter-branch -f --msg-filter "cat && $(coauthorMessage($1))" master..HEAD &&
     no_longer_pairing
 }
 
@@ -19,16 +20,54 @@ prepareProjectForPairing() {
   ln -s -i $GIT_PAIR_SESSION_DIR/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg
 }
 
+getPair() {
+  git config --global --get pair.initials
+}
+
+unsetPair() {
+  git config --global --unset pair.initials $1
+}
+
 setPair() {
-    echo "{ \"name\": \"$(pairName $1)\", \"email\": \"$(pairEmail $1)\" }" > \
-    $COAUTHOR_FILE
+  git config --global --add pair.initials $1
 }
 
-pairName() {
-  cat $PAIRS_FILE | jq -r ".name.$1"
+userName() {
+  git config --get user.name
 }
 
-pairEmail() {
-  cat $PAIRS_FILE | jq -r ".email.$1"
+userEmail() {
+  git config --get user.email
 }
 
+coauthorName() {
+  git config --get colleagues.$1.name
+}
+
+coauthorEmail() {
+  git config --get colleagues.$1.email
+}
+
+addColleague() {
+  removeColleague $1 &&
+  git config --global --add colleagues.$1.name "$2" &&
+  git config --global --add colleagues.$1.email "$3"
+}
+
+removeColleague() {
+  getColleague $1 > /dev/null
+  if [ $? -eq 0 ]
+  then
+    git config --global --unset-all colleagues.$1.name &&
+    git config --global --unset-all colleagues.$1.email &&
+    git config --global --remove-section colleagues.$1
+  fi
+}
+
+getColleague() {
+  git config --global --get colleagues.$1.name
+}
+
+coauthorMessage() {
+  echo "\"\n\nCo-authored-by: $(userName()) <$(userEmail())>\nCo-authored-by: $(coauthorName($1)) <$(coauthorEmail($1))>\""
+}
