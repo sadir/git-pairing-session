@@ -14,33 +14,31 @@ See my [blog post](https://tech.nested.com/) on the benefits of pair programming
 
 ## Installation
 
-1. You'll need to install [jq](https://stedolan.github.io/jq/).
-
-```
-brew install jq
-```
-
-2. Clone this repo into your home directory. :house:
+1. Clone this repo into your home directory. :house:
 
 ```
 git clone https://github.com/sadir/git-pairing-session.git $HOME/
 ```
 
-3. Add the `git-pairing-session` script to your bash config (e.g. in `~/.bash_profile` or `~/.bashrc`).
+2. Add the `git-pairing-session` script to your bash config (e.g. in `~/.bash_profile` or `~/.bashrc`).
 
 ```
 source $HOME/git-pairing-session/git-pairing-session
 ```
 
-4. Setup your `$PAIRS_FILE` so `git-pairing-session` knows who you can :pear: with. By default this file should be in your `$HOME/git-pairing-session` directory where you cloned this repo.
+3. Setup your colleagues so `git-pairing-session` knows who you can :pear: with.
 
 ```
-cp .pairs.json.example .pairs.json
-# add your colleagues
-# optionally remove me :(
+add_colleague ms "Morgan Sadr-Hashemi" "morgan@example.com"
 ```
 
 Note: [your colleagues email addresses must match their github email](https://help.github.com/articles/creating-a-commit-with-multiple-authors/).
+
+You can remove colleagues too if they abandon you:
+
+```
+remove_colleague ms
+```
 
 ## Usage
 
@@ -87,12 +85,10 @@ paired_with ms
 
 ## Customisation
 
-Set these variables after you `source` this repo to override and configure where things live:
+Set this variable if you cloned the repo somewhere else:
 
 ```
 export GIT_PAIR_SESSION_DIR=$HOME/git-pairing-session
-export COAUTHOR_FILE=$GIT_PAIR_SESSION_DIR/.coauthor.json
-export PAIRS_FILE=$GIT_PAIR_SESSION_DIR/.pairs.json
 ```
 
 ## Why this repo? Why not `other-repo`?
@@ -109,4 +105,4 @@ This one put both co-authors in as the commiter but that broke the way that gith
 
 * [peterjwest/git-pair](https://github.com/peterjwest/git-pair)
 
-Similar to git-pair, with added downsides of not being maintained and I quite wanted something in shell script rather than JS.
+Similar to git-pair, with added downsides of not being maintained and I quite wanted something in shell script without any dependencies other than Git, rather than using JS.
