@@ -11,8 +11,8 @@ alias remove_colleague=removeColleague
 alias get_colleague=getColleague
 
 setCoauthorsForCurrentBranch() {
-  setPair $1 &&
-    git filter-branch -f --msg-filter "cat && $(coauthorMessage($1))" master..HEAD &&
+  setPair $1 && coauthorMessage $1 &&
+    git filter-branch -f --msg-filter "cat && echo \"$MESSAGE\"" master..HEAD &&
     no_longer_pairing
 }
 
@@ -25,7 +25,8 @@ getPair() {
 }
 
 unsetPair() {
-  git config --global --unset pair.initials $1
+  git config --global --unset-all pair.initials $1 &&
+  git config --global --remove-section pair
 }
 
 setPair() {
@@ -69,5 +70,11 @@ getColleague() {
 }
 
 coauthorMessage() {
-  echo "\"\n\nCo-authored-by: $(userName()) <$(userEmail())>\nCo-authored-by: $(coauthorName($1)) <$(coauthorEmail($1))>\""
+  COMMITER_NAME=$(git config --get user.name)
+  COMMITER_EMAIL=$(git config --get user.email)
+  COAUTHOR_NAME=$(git config --global --get colleagues.$1.name)
+  COAUTHOR_EMAIL=$(git config --global --get colleagues.$1.email)
+  COMMITER="$COMMITER_NAME <$COMMITER_EMAIL>"
+  COAUTHOR="$COAUTHOR_NAME <$COAUTHOR_EMAIL>"
+  MESSAGE="\n\n\nCo-authored-by: $COMMITER\nCo-authored-by: $COAUTHOR" >> "$1"
 }
