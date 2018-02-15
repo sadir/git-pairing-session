@@ -7,15 +7,14 @@
 # message file.  If the hook fails with a non-zero status,
 # the commit is aborted.
 
-if [ ! -z "$COAUTHOR_FILE" ]
+PAIRINITIALS=$(git config --global --get pair.initials)
+if [ $? -eq 0 ]
 then
   COMMITER_NAME=$(git config --get user.name)
   COMMITER_EMAIL=$(git config --get user.email)
-  COAUTHOR_NAME=$(cat $COAUTHOR_FILE | jq -r ".name")
-  COAUTHOR_EMAIL=$(cat $COAUTHOR_FILE | jq -r ".email")
+  COAUTHOR_NAME=$(git config --global --get colleagues.$PAIRINITIALS.name)
+  COAUTHOR_EMAIL=$(git config --global --get colleagues.$PAIRINITIALS.email)
   COMMITER="$COMMITER_NAME <$COMMITER_EMAIL>"
   COAUTHOR="$COAUTHOR_NAME <$COAUTHOR_EMAIL>"
-  echo "Commiter: $COMMITER"
-  echo "Co-author: $COAUTHOR"
   echo "\n\n\nCo-authored-by: $COMMITER\nCo-authored-by: $COAUTHOR" >> "$1"
 fi
