@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export GIT_PAIR_SESSION_DIR=$HOME/git-pairing-session
+export GIT_PAIRING_SESSION_DIR=$GIT_PAIRING_SESSION_DIR | $HOME/git-pairing-session
 
 alias pairing_project=prepareProjectForPairing
 alias pairing_with=setPair
@@ -17,7 +17,7 @@ setCoauthorsForCurrentBranch() {
 }
 
 prepareProjectForPairing() {
-  ln -s -i $GIT_PAIR_SESSION_DIR/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg
+  ln -s -i $GIT_PAIRING_SESSION_DIR/hooks/prepare-commit-msg .git/hooks/prepare-commit-msg
 }
 
 getPair() {
