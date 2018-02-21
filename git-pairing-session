@@ -1,6 +1,6 @@
 #! /bin/bash
 
-export GIT_PAIRING_SESSION_DIR=$GIT_PAIRING_SESSION_DIR | $HOME/git-pairing-session
+export GIT_PAIRING_SESSION_DIR=${GIT_PAIRING_SESSION_DIR:-$HOME/git-pairing-session}
 
 alias pairing_project=prepareProjectForPairing
 alias pairing_with=setPair
