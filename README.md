@@ -5,7 +5,7 @@ A mini set of shell scripts to enable you to take advantage of [commits with coa
 ![github coauthored commit screenshot](https://i.imgur.com/2Yu1IdT.png)
 ## Why pair?
 
-See my [blog post](https://tech.nested.com/) on the benefits of pair programming.
+See my [blog post](https://tech.nested.com/pair-programming-and-github-coauthors-85028923b238) on the benefits of pair programming.
 
 ## Why record coauthors?
 
